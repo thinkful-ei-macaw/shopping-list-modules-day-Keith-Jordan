@@ -1,4 +1,4 @@
-const foo = 'bar';
+import item from './item.js';
 
 const store = {
   items: [],
@@ -10,3 +10,5 @@ items: store.items,
 hideCheckedItems: store.hideCheckedItems
 };
 
+console.log(item);
+console.log(foo);
