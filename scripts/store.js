@@ -9,6 +9,3 @@ export default {
 items: store.items,
 hideCheckedItems: store.hideCheckedItems
 };
-
-console.log(item);
-console.log(foo);
