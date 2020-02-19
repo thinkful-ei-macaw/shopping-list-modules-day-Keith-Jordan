@@ -7,7 +7,7 @@ const store = {
 
 
 function findById(id) {
-  return store.items.find(item.id);
+  return store.items.find(item => item.id);
 }
 
 function addItem(name) {
@@ -37,13 +37,15 @@ function findAndUpdateName(id, newName) {
 }
 
 function findAndDelete(id) {
-  let item = this.findById(id);
-  this.items.filter(item);
+  this.items = this.items.filter(item => item.id !== id);
 }
-
-
 
 export default {
 items: store.items,
-hideCheckedItems: store.hideCheckedItems
+hideCheckedItems: store.hideCheckedItems,
+findAndDelete,
+findAndUpdateName,
+findAndToggleChecked,
+addItem,
+findById
 };

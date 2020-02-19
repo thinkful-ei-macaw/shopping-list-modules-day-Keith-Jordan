@@ -56,20 +56,16 @@ const handleNewItemSubmit = function () {
     event.preventDefault();
     const newItemName = $('.js-shopping-list-entry').val();
     $('.js-shopping-list-entry').val('');
-    addItemToShoppingList(newItemName);
+    store.findAndUpdateName(id, name);
     render();
   });
-};
-
-const toggleCheckedForListItem = function (id) {
-  const foundItem = store.items.find(item => item.id === id);
-  foundItem.checked = !foundItem.checked;
 };
 
 const handleItemCheckClicked = function () {
   $('.js-shopping-list').on('click', '.js-item-toggle', event => {
     const id = getItemIdFromElement(event.currentTarget);
     toggleCheckedForListItem(id);
+    store.findAndToggleChecked();
     render();
   });
 };
@@ -84,10 +80,7 @@ const getItemIdFromElement = function (item) {
  * Responsible for deleting a list item.
  * @param {string} id 
  */
-const deleteListItem = function (id) {
-  const index = store.items.findIndex(item => item.id === id);
-  store.items.splice(index, 1);
-};
+
 
 const handleDeleteItemClicked = function () {
   // like in `handleItemCheckClicked`, we use event delegation
@@ -95,23 +88,16 @@ const handleDeleteItemClicked = function () {
     // get the index of the item in store.items
     const id = getItemIdFromElement(event.currentTarget);
     // delete the item
-    deleteListItem(id);
+        store.findAndDelete(id);
     // render the updated shopping list
     render();
   });
 };
 
-const editListItemName = function (id, itemName) {
-  const item = store.items.find(item => item.id === id);
-  item.name = itemName;
-};
 
 /**
  * Toggles the store.hideCheckedItems property
  */
-const toggleCheckedItemsFilter = function () {
-  store.hideCheckedItems = !store.hideCheckedItems;
-};
 
 /**
  * Places an event listener on the checkbox
@@ -119,8 +105,8 @@ const toggleCheckedItemsFilter = function () {
  */
 const handleToggleFilterClick = function () {
   $('.js-filter-checked').click(() => {
-    toggleCheckedItemsFilter();
-    render();
+  store.toggleCheckedFilter();
+render();
   });
 };
 
